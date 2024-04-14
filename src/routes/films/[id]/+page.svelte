@@ -12,5 +12,5 @@
 {#if film}
     <p>{film.name}, directed by: {film.director}</p>
 {:else}
-    <p>No film was found with id {film.id}</p>
+    <p>No film was found with id {data.id}</p>
 {/if}
