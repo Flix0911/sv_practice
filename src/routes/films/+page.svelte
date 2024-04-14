@@ -1,11 +1,25 @@
 <script>
     import { FilmStore } from '../../film-store'
+    import { onMount } from 'svelte';
 
-    // handleclick event
-    let handleClick = () => FilmStore.update(prev => {
-        let newFilm = {id: 3, name: 'Drive', director: 'Nicholas Winding Refn'}
-        return [...prev, newFilm]
+    onMount(async function () {
+    if(!$FilmStore.length) {
+        const endpoint = 'http://localhost:8000/api/films/'
+
+        const response = await fetch(endpoint)
+
+        const data = await response.json()
+        FilmStore.set(data)
+    }
+
+        // console.log(data)
     })
+
+    // handleclick event ~ unneeded now
+    // let handleClick = () => FilmStore.update(prev => {
+    //     let newFilm = {id: 3, name: 'Drive', director: 'Nicholas Winding Refn'}
+    //     return [...prev, newFilm]
+    // })
 
     // can remove and add a hook
     // let films = []
@@ -32,7 +46,7 @@
             
             <div class="card w-100 h-100">
                 <img class="card-img-top" style="height: 300px; object-fit: cover" 
-                    src="" 
+                    src="{film.image}" 
                     alt="Film">
                 <div class="card-body d-flex flex-column justify-content-between gap-4">
 					<div>
