@@ -4,7 +4,8 @@
     
     let name = '';
     let director = '';
-    let description = ''
+    let description = '';
+    let tags = '';
     let files;
     let showInvalidMessage = false;
 
@@ -23,13 +24,19 @@
         data.append('director', director)
         data.append('description', description)
         data.append('image', files[0])
+
+        if(tags.length) {
+        const tagList = tags.split(",")
+        tagList.forEach(tag => data.append('tags', tag.trim()))
         
+        }
         fetch(endpoint, {method: 'POST', body: data}).then(response => response.json()).then(data => {
             FilmStore.update(prev => [...prev, data])
+            goto('/films/')
         })
             
 
-        goto('/films/')
+        
     }
 </script>
 
@@ -55,6 +62,9 @@
             </div>
             <div class="mb-3">
                 <input class="form-control" type="file" bind:files/>
+            </div>
+            <div class="mb-3">
+                <input class="form-control" type="text" placeholder="tags" bind:value={tags}/>
             </div>
         
             <button class="btn btn-primary" type="submit">Submit</button>
