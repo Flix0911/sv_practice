@@ -39,6 +39,9 @@
         <div class="col-12 col-md-8">
             <p class="mb-2"><b>{ film.name }</b>, directed by <i>{ film.director }</i></p>
             <p class="mb-2">{ film.description }</p>
+
+            <!-- update button -->
+            <a href="/films/{film.id}/update" class="btn btn-primary mt-2">Update</a>
         </div>
     {:else }
         <p>No film was found with ID {data.id}</p>
